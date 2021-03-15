@@ -26,8 +26,8 @@ const markers: LngLat[] = [];
 
 function App() {
     const [viewport, setViewport] = useState({
-        latitude: 46.440896,
-        longitude: 6.891924,
+        latitude: 46.529405896941945,
+        longitude: 6.622925131236617,
         zoom: 19,
         maxZoom: 22,
         minZoom: 17,
@@ -54,6 +54,10 @@ function App() {
                 {markers.map((gps, idx) =>
                     <MapMarker id={idx} gps={gps} onDelete={() => markers.splice(idx, 1)}/>)}
             </ReactMapGl>
+            <div className="export-container">
+                {markers.map((gps, idx) =>
+                    <div>{'RELAIS ' + idx} <br/>  {' lon: ' + gps.longitude} <br/> {'lat: ' + gps.latitude} <br/> </div>)}
+            </div>
         </div>
     );
 }

@@ -1,11 +1,24 @@
 .container {
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 .map {
-  cursor: none;
+    cursor: none;
+    position: absolute;
+}
+
+.export-container {
+    background: white;
+    border-radius: 30px;
+    margin: 50px;
+    width: 300px;
+    position: absolute;
+    padding: 20px;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
