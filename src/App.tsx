@@ -6,6 +6,11 @@ import './App.css';
 import {MapEvent} from "react-map-gl/src/components/interactive-map";
 import MapMarker from "./MapMarker/MapMarker";
 
+import mapboxgl from 'mapbox-gl';
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!../../../node_modules/mapbox-gl/dist/mapbox-gl-csp-worker').default;
+
 export class LngLat {
     longitude: number;
     latitude: number;
@@ -33,8 +38,6 @@ function App() {
     function handleDblClick(evt: MapEvent) {
         markers.push(new LngLat(evt.lngLat[0], evt.lngLat[1]))
     }
-
-    console.log(markers.length)
 
     return (
         <div className="container">
