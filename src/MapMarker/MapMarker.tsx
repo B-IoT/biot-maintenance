@@ -17,24 +17,29 @@ export default function MapMarker(props: { id: number, gps: LngLat, onDelete: ()
                 closeButton={false}
                 anchor="top"
             >
-                <div
-                    className={showPopup ? 'popup-animation' : 'hidden'}>
+                <OutsideAlerter
+                    value={false}
+                    setValue={togglePopup}
+                    detectDrag={true}>
                     <div
-                        className={showPopup ? 'popup' : 'hidden'}>
-                        {" RELAIS " + (props.id + 1)}
-                        <br/>
-                        <br/>
-                        {" Longitude: " + props.gps.longitude}
-                        <br/>
-                        {" Latitude: " + props.gps.latitude}
-                    </div>
+                        className={showPopup ? 'popup-animation' : 'hidden'}>
+                        <div
+                            className={showPopup ? 'popup' : 'hidden'}>
+                            {" RELAIS " + (props.id + 1)}
+                            <br/>
+                            <br/>
+                            {" Longitude: " + props.gps.longitude}
+                            <br/>
+                            {" Latitude: " + props.gps.latitude}
+                        </div>
 
-                    <button
-                        className={showPopup ? 'delete-button' : 'hidden'}
-                        onClick={props.onDelete}
-                    > Supprimer
-                    </button>
-                </div>
+                        <button
+                            className={showPopup ? 'delete-button' : 'hidden'}
+                            onClick={props.onDelete}
+                        > Supprimer
+                        </button>
+                    </div>
+                </OutsideAlerter>
             </Popup>
             <Marker
                 key={props.id}
@@ -43,22 +48,19 @@ export default function MapMarker(props: { id: number, gps: LngLat, onDelete: ()
                 offsetLeft={-15}
                 offsetTop={-30}
             >
-                <OutsideAlerter
-                    value={false}
-                    setValue={togglePopup}
-                    detectDrag={true}>
-                    <button
-                        className={showPopup ? 'tracker tracker-animation' : 'tracker'}
-                        onClick={() => {
-                            togglePopup(!showPopup);
-                        }}
-                    >
-                        <img
-                            src={tracker}
-                            alt="Tracker"
-                            width={30}/>
-                    </button>
-                </OutsideAlerter>
+
+                <button
+                    className={showPopup ? 'tracker tracker-animation' : 'tracker'}
+                    onClick={() => {
+                        togglePopup(!showPopup);
+                    }}
+                >
+                    <img
+                        src={tracker}
+                        alt="Tracker"
+                        width={30}/>
+                </button>
+
             </Marker>
         </div>
     );

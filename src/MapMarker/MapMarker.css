@@ -70,6 +70,7 @@
   font-size: 16px;
   font-weight: bold;
 
+  background: rgba(61, 86, 161, 0.25);
   border-radius: 15px;
   padding: 20px 20px 15px;
   -webkit-backdrop-filter: blur(20px) brightness(120%) contrast(80%);

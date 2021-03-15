@@ -32,7 +32,6 @@ function App() {
         zoom: 19,
         maxZoom: 22,
         minZoom: 17,
-        // doubleClickZoom: false
         // mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
     } as any);
 
@@ -54,6 +53,7 @@ function App() {
                 mapStyle={'mapbox://styles/ludohoffstetter/ckm9rqausfir817rz0t5l28p5'}
                 onDblClick={handleDblClick}
                 getCursor={() => "crosshair"}
+                doubleClickZoom={false}
             >
                 <Source
                     id="map-source"
@@ -70,7 +70,7 @@ function App() {
                     id="overlay"
                     source="map-source"
                     type="raster"
-                    paint={{ "raster-opacity": 0.5 }}
+                    paint={{ "raster-opacity": 0.75 }}
                 />
                 {markers.map((gps, idx) =>
                     <MapMarker id={idx} gps={gps} onDelete={() => markers.splice(idx, 1)}/>)}
