@@ -70,7 +70,7 @@ function App() {
                     id="overlay"
                     source="map-source"
                     type="raster"
-                    paint={{ "raster-opacity": 0.05 }}
+                    paint={{ "raster-opacity": 0.5 }}
                 />
                 {markers.map((gps, idx) =>
                     <MapMarker id={idx} gps={gps} onDelete={() => markers.splice(idx, 1)}/>)}
