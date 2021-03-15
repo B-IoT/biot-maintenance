@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import ReactMapGl from 'react-map-gl';
+import ReactMapGl, {Layer, Source} from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
 import {MapEvent} from "react-map-gl/src/components/interactive-map";
 import MapMarker from "./MapMarker/MapMarker";
+import blueprint from './blueprint.png';
 
 import mapboxgl from 'mapbox-gl';
 // @ts-ignore
@@ -51,12 +52,29 @@ function App() {
                 onDblClick={handleDblClick}
                 getCursor={() => "crosshair"}
             >
+                <Source
+                    id="map-source"
+                    type="image"
+                    url={blueprint}
+                    coordinates={[
+                        [6.6221646113321135, 46.52992292443224],
+                        [6.623385456772448, 46.52943385229428],
+                        [6.622987925323761, 46.528960050318986],
+                        [6.621764919250702, 46.52944756749944]
+                    ]}
+                />
+                <Layer
+                    id="overlay"
+                    source="map-source"
+                    type="raster"
+                    paint={{ "raster-opacity": 0.85 }}
+                />
                 {markers.map((gps, idx) =>
                     <MapMarker id={idx} gps={gps} onDelete={() => markers.splice(idx, 1)}/>)}
             </ReactMapGl>
             <div className="export-container">
                 {markers.map((gps, idx) =>
-                    <div>{'RELAIS ' + idx} <br/>  {' lon: ' + gps.longitude} <br/> {'lat: ' + gps.latitude} <br/> </div>)}
+                    <div>{'RELAIS ' + idx} <br/>  {' lon: ' + gps.longitude} <br/> {'lat: ' + gps.latitude} <br/> <br/> g</div>)}
             </div>
         </div>
     );
