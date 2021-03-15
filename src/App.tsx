@@ -1,26 +1,58 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import ReactMapGl from 'react-map-gl';
+
+import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
+import {MapEvent} from "react-map-gl/src/components/interactive-map";
+import MapMarker from "./MapMarker/MapMarker";
+
+export class LngLat {
+    longitude: number;
+    latitude: number;
+
+    constructor(longitude: number, latitude: number) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
+}
+
+const markers: LngLat[] = [];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [viewport, setViewport] = useState({
+        latitude: 46.440896,
+        longitude: 6.891924,
+        zoom: 19,
+        maxZoom: 22,
+        minZoom: 17,
+        // doubleClickZoom: false
+        // mapStyle: 'mapbox://styles/ludohoffstetter/cklfuba923yaa17miwvtmd26g',
+    } as any);
+
+    function handleDblClick(evt: MapEvent) {
+        markers.push(new LngLat(evt.lngLat[0], evt.lngLat[1]))
+    }
+
+    console.log(markers.length)
+
+    return (
+        <div className="container">
+            <ReactMapGl
+                {...viewport}
+                className={'map'}
+                width="100%"
+                height="100%"
+                onViewportChange={setViewport}
+                mapStyle={'mapbox://styles/ludohoffstetter/ckm9rqausfir817rz0t5l28p5'}
+                onDblClick={handleDblClick}
+                getCursor={() => "crosshair"}
+            >
+                {markers.map((gps, idx) =>
+                    <MapMarker id={idx} gps={gps} onDelete={() => markers.splice(idx, 1)}/>)}
+            </ReactMapGl>
+        </div>
+    );
 }
 
 export default App;
