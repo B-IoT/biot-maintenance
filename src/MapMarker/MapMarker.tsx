@@ -5,15 +5,15 @@ import tracker from '../marker.svg';
 import {LngLat} from "../App";
 import './MapMarker.css';
 
-export default function MapMarker(props: { id: number, gps: LngLat, onDelete: () => void }) {
+export default function MapMarker(props: { id: number, marker: LngLat, onDelete: () => void }) {
     const [showPopup, togglePopup] = useState(false);
 
     return (
         <div>
             <Popup
                 className={showPopup ? 'popup' : 'hidden'}
-                latitude={props.gps.latitude}
-                longitude={props.gps.longitude}
+                latitude={props.marker.latitude}
+                longitude={props.marker.longitude}
                 closeButton={false}
                 anchor="top"
             >
@@ -28,9 +28,11 @@ export default function MapMarker(props: { id: number, gps: LngLat, onDelete: ()
                             {" RELAIS " + (props.id + 1)}
                             <br/>
                             <br/>
-                            {" Longitude: " + props.gps.longitude}
+                            {" Longitude: " + props.marker.longitude}
                             <br/>
-                            {" Latitude: " + props.gps.latitude}
+                            {" Latitude: " + props.marker.latitude}
+                            <br/>
+                            {" Floor: " + props.marker.floor}
                         </div>
 
                         <button
@@ -43,8 +45,8 @@ export default function MapMarker(props: { id: number, gps: LngLat, onDelete: ()
             </Popup>
             <Marker
                 key={props.id}
-                latitude={props.gps.latitude}
-                longitude={props.gps.longitude}
+                latitude={props.marker.latitude}
+                longitude={props.marker.longitude}
                 offsetLeft={-15}
                 offsetTop={-30}
             >
