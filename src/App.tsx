@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import ReactMapGl, {Layer, Source} from 'react-map-gl';
+import ReactMapGl, {FlyToInterpolator, Layer, Source} from 'react-map-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './App.css';
 import {MapEvent} from "react-map-gl/src/components/interactive-map";
 import MapMarker from "./MapMarker/MapMarker";
-import floor1 from './floor1.png';
-import floor2 from './floor2.png';
+import floor1 from './img/floor1.png';
+import floor2 from './img/floor2.png';
+import laforge from './img/laforge.png';
 
 import mapboxgl from 'mapbox-gl';
 // @ts-ignore
@@ -27,13 +28,15 @@ export class LngLat {
     }
 }
 
+const flyToOperator = new FlyToInterpolator({speed: 6});
+
 function App() {
     const [floor, setFloor] = useState(1);
     const [markers, setMarkers] = useState([] as LngLat[]);
     const [filterMarkers, setFilterMarkers] = useState([] as any[]);
     const [viewport, setViewport] = useState({
-        latitude: 46.529405896941945,
-        longitude: 6.622925131236617,
+        latitude: 46.52945096084946,
+        longitude: 6.622548414151265,
         zoom: 19,
         maxZoom: 22,
         minZoom: 17,
@@ -62,6 +65,15 @@ function App() {
         setMarkers(markersCopy);
     }
 
+    function locationHandler(latitude: number, longitude: number) {
+        let newViewport = {...viewport};
+        newViewport.latitude = latitude;
+        newViewport.longitude = longitude;
+        newViewport.transitionDuration = 'auto';
+        newViewport.transitionInterpolator = flyToOperator;
+        setViewport(newViewport);
+    }
+
     return (
         <div className="container">
             <ReactMapGl
@@ -86,8 +98,25 @@ function App() {
                         [6.621764919250702 + lonShift, 46.52944756749944 + latShift]
                     ]}
                 />
+                <Source
+                    id="map-forge"
+                    type="image"
+                    url={laforge}
+                    coordinates={[
+                        [6.562626893173264, 46.517607277539106],
+                        [6.5628093769, 46.51760915585804],
+                        [6.5628127237, 46.51741702672684],
+                        [6.5626283139612275, 46.517416565297]
+                    ]}
+                />
                 <Layer
-                    id="overlay"
+                    id="overlay1"
+                    source="map-forge"
+                    type="raster"
+                    paint={{"raster-opacity": 1}}
+                />
+                <Layer
+                    id="overlay2"
                     source="map-source"
                     type="raster"
                     paint={{"raster-opacity": 1}}
@@ -108,6 +137,16 @@ function App() {
                 <button className='floor-button'
                         onClick={() => setFloor(floor - 1)}>
                     {'-'}
+                </button>
+            </div>
+            <div className="location-container">
+                <button className='location-button'
+                        onClick={() => locationHandler(46.51749320903048, 6.562742904370853)}>
+                    {'La Forge'}
+                </button>
+                <button className='location-button'
+                        onClick={() => locationHandler(46.52945096084946, 6.622548414151265)}>
+                    {'La Source'}
                 </button>
             </div>
         </div>

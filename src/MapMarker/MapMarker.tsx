@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Marker, Popup} from 'react-map-gl';
 import OutsideAlerter from '../OutsideAlerter';
-import tracker from '../marker.svg';
+import tracker from '../img/marker.svg';
 import {LngLat} from "../App";
 import './MapMarker.css';
 
