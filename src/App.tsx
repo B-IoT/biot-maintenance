@@ -7,7 +7,8 @@ import {MapEvent} from "react-map-gl/src/components/interactive-map";
 import MapMarker from "./MapMarker/MapMarker";
 import floor1 from './img/floor1.png';
 import floor2 from './img/floor2.png';
-import laforge from './img/laforge.png';
+import laforge0 from './img/laforge0.png';
+import laforge1 from './img/laforge1.png';
 
 import mapboxgl from 'mapbox-gl';
 // @ts-ignore
@@ -31,7 +32,7 @@ export class LngLat {
 const flyToOperator = new FlyToInterpolator({speed: 6});
 
 function App() {
-    const [floor, setFloor] = useState(1);
+    const [floor, setFloor] = useState(0);
     const [markers, setMarkers] = useState([] as LngLat[]);
     const [filterMarkers, setFilterMarkers] = useState([] as any[]);
     const [viewport, setViewport] = useState({
@@ -65,8 +66,9 @@ function App() {
         setMarkers(markersCopy);
     }
 
-    function locationHandler(latitude: number, longitude: number) {
+    function locationHandler(zoom: number, latitude: number, longitude: number) {
         let newViewport = {...viewport};
+        newViewport.zoom = zoom;
         newViewport.latitude = latitude;
         newViewport.longitude = longitude;
         newViewport.transitionDuration = 'auto';
@@ -101,7 +103,7 @@ function App() {
                 <Source
                     id="map-forge"
                     type="image"
-                    url={laforge}
+                    url={floor < 1 ? laforge0 : laforge1}
                     coordinates={[
                         [6.562626893173264, 46.517607277539106],
                         [6.562863671772686, 46.517609132035275],
@@ -141,11 +143,11 @@ function App() {
             </div>
             <div className="location-container">
                 <button className='location-button'
-                        onClick={() => locationHandler(46.51749320903048, 6.562742904370853)}>
+                        onClick={() => locationHandler(20,46.51749320903048, 6.562742904370853)}>
                     {'La Forge'}
                 </button>
                 <button className='location-button'
-                        onClick={() => locationHandler(46.52945096084946, 6.622548414151265)}>
+                        onClick={() => locationHandler(19, 46.52945096084946, 6.622548414151265)}>
                     {'La Source'}
                 </button>
             </div>
