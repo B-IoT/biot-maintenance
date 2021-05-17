@@ -43,7 +43,7 @@ function App() {
         longitude: 6.622548414151265,
         zoom: 19,
         maxZoom: 22,
-        minZoom: 17,
+        minZoom: 12,
     } as any);
     const lonShift = -0.00000804584146 * 0.3;
     const latShift = -0.00002940280387 * 0.8;
