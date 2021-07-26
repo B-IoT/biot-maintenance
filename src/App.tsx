@@ -12,6 +12,7 @@ import laforge1 from './img/laforge1.png';
 import epfl0 from './img/EPFL0.png';
 import epfl1 from './img/EPFL1.png';
 import epfl2 from './img/EPFL2.png';
+import jura from './img/jura.png';
 
 import mapboxgl from 'mapbox-gl';
 // @ts-ignore
@@ -125,6 +126,17 @@ function App() {
                         [6.568631644262474, 46.51997530035722]
                     ]}
                 />
+                <Source
+                    id="map-jura"
+                    type="image"
+                    url={jura}
+                    coordinates={[
+                        [7.338844798514536, 47.369253551940076],
+                        [7.338958569663031, 47.36870393432424],
+                        [7.33842591050379, 47.3686556438214],
+                        [7.338318260227098, 47.369201039874746],
+                    ]}
+                />
                 <Layer
                     id="overlay1"
                     source="map-source"
@@ -140,6 +152,12 @@ function App() {
                 <Layer
                     id="overlay3"
                     source="map-epfl"
+                    type="raster"
+                    paint={{"raster-opacity": 1}}
+                />
+                <Layer
+                    id="overlay4"
+                    source="map-jura"
                     type="raster"
                     paint={{"raster-opacity": 1}}
                 />
@@ -174,8 +192,10 @@ function App() {
                         onClick={() => locationHandler(19, 46.52945096084946, 6.622548414151265)}>
                     {'La Source'}
                 </button>
-
-
+                <button className='location-button'
+                        onClick={() => locationHandler(19, 47.36895354249011, 7.338636884727114)}>
+                    {'Hôpital du Jura'}
+                </button>
             </div>
         </div>
     );
